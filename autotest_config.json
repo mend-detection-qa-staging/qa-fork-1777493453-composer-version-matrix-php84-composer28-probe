@@ -1,5 +1,6 @@
 {
   "description": "Autotest configuration file for dependency tree detection validation",
+  "_comment_probe_purpose": "version-matrix probe pinning PHP 8.4 + Composer 2.8 (latest combination).",
   "version": 1.7,
   "base_config": {
     "validate_scan_output": true,
@@ -8,7 +9,7 @@
       "security_scan_report_conclusion": "success",
       "_comment_security_scan_report_conclusion": "Optional. Expected scan report conclusion. Options: 'success' | 'failure'. This validates the security scan result status. If not provided, this check will not be performed.",
       "total_libs_scanned": {
-        "eq": 0
+        "gte": 2
       },
       "_comment_total_libs_scanned": "Optional. Expected number of libraries scanned with comparison operator. Validates that the scan processed libraries. If not provided, this check will not be performed.",
       "expected_messages": [],
@@ -25,24 +26,30 @@
       "check_update_request_sca_results": false,
       "_comment_check_update_request_sca_results": "Whether to validate extraProperties.scaResults from the update request. Parses scaResults as JSON and asserts: (1) totalFail is empty {}, (2) no results entry has level 'ERROR'. Options: true | false. Default: false",
       "expected_total_dependencies_number": {
-        "eq": 0
+        "gte": 0
       },
       "expected_direct_dependencies_number": {
-        "eq": 0
+        "eq": 1
       },
       "expected_transitive_dependencies_number": {
-        "eq": 0
+        "gte": 0
       },
       "_comment_expected_dependencies_number": "Optional. Expected number of dependencies with comparison operator. Operators: gt (>), gte (>=), lt (<), lte (<=), eq (==). If not provided, this check will not be performed.",
       "direct_dependencies_names_list": {
-        "contains": []
+        "eq": [
+          "monolog/monolog"
+        ]
       },
       "transitive_dependencies_names_list": {
-        "contains": []
+        "contains": [
+          "psr/log"
+        ]
       },
       "_comment_dependencies_names_list": "Optional. Check specific libraries in direct dependencies. Operators: eq (==), contains (all items from expected list in actual), in(all items from actual list in expected), nin(actual list does not contain provided libs). If not provided, this check will not be performed.",
       "expected_package_managers": {
-        "contains": []
+        "contains": [
+          "php"
+        ]
       },
       "_comment_expected_package_managers": "Optional. Validate scanSummaryInfo.packageManagers list (values normalised to lowercase). Operators: eq (exact match), contains (actual has all expected), in (actual is subset of expected), nin (actual has none of expected). Example: {'contains': ['npm', 'maven']}. If not provided, this check will not be performed.",
       "validate_agent_versions": false,
