@@ -1,0 +1,52 @@
+{
+    "schema_version": "1.0",
+    "pm": "composer",
+    "pm_version_tested": "2.8",
+    "php_version_tested": "8.4",
+    "docker_image": "composer:2.8",
+    "actual_versions": {
+        "composer": "2.8.12",
+        "php": "8.4.14"
+    },
+    "lockfile": "composer.lock",
+    "plugin_api_version": "2.6.0",
+    "pattern": "version-matrix-php84-composer28",
+    "notes": "Minimal probe for PHP 8.4 + Composer 2.8 version-matrix coverage. Two packages from Packagist: monolog/monolog (direct) and psr/log (transitive). Platform constraint php>=8.4 is recorded in composer.lock platform section but does not appear as a lockfile package entry.",
+    "packages": [
+        {
+            "name": "monolog/monolog",
+            "version": "3.10.0",
+            "scope": "require",
+            "source": "registry",
+            "direct": true,
+            "children": [
+                {
+                    "name": "psr/log",
+                    "version": "3.0.2",
+                    "scope": "require",
+                    "source": "registry",
+                    "direct": false,
+                    "children": []
+                }
+            ]
+        }
+    ],
+    "total_packages": 2,
+    "direct_count": 1,
+    "transitive_count": 1,
+    "unique_packages": [
+        "monolog/monolog:3.10.0",
+        "psr/log:3.0.2"
+    ],
+    "mend_detection_expectations": {
+        "all_packages_must_appear": true,
+        "source_for_all": "registry",
+        "no_missing_transitives": true,
+        "platform_php_not_a_lockfile_package": true,
+        "failure_modes_exercised": [
+            "php 8.4 platform constraint must not appear as an installable package",
+            "transitive psr/log must be detected even with minimal dep graph",
+            "composer 2.8 plugin-api-version 2.6.0 lockfile format must parse correctly"
+        ]
+    }
+}
